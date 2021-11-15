@@ -1,0 +1,16 @@
+{
+  "name": "@kauabunga/cloudbuild-ui-agent",
+  "version": "0.0.1",
+  "description": "Function that sends a slack notification on the completion of a CloudBuild run",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "deploy": "yarn deploy:nonprod && yarn deploy:preprod && yarn deploy:prod",
+    "deploy:nonprod": "gcloud functions deploy ciCloudbuildUiAgent --region australia-southeast1 --trigger-topic cloud-builds --runtime nodejs14 --memory 256MB --set-env-vars \"WEBHOOK_URL=https://australia-southeast1-oba-cloudbuild.cloudfunctions.net/helloWorld\" --project oba-nonprod",
+    "deploy:preprod": "gcloud functions deploy ciCloudbuildUiAgent --region australia-southeast1 --trigger-topic cloud-builds --runtime nodejs14 --memory 256MB --set-env-vars \"WEBHOOK_URL=https://australia-southeast1-oba-cloudbuild.cloudfunctions.net/helloWorld\" --project oba-preprod",
+    "deploy:prod": "gcloud functions deploy ciCloudbuildUiAgent --region australia-southeast1 --trigger-topic cloud-builds --runtime nodejs14 --memory 256MB --set-env-vars \"WEBHOOK_URL=https://australia-southeast1-oba-cloudbuild.cloudfunctions.net/helloWorld\" --project oba-prod"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.6"
+  }
+}
