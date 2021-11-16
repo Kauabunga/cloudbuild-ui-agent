@@ -1,4 +1,10 @@
-const fetch = require("node-fetch");
+const originalFetch = require("node-fetch");
+const fetch = require("fetch-retry")(originalFetch, {
+  retries: 5,
+  retryDelay: function (attempt, error, response) {
+    return Math.pow(2, attempt) * 1000; // 1000, 2000, 4000
+  },
+});
 const url = process.env.WEBHOOK_URL;
 
 module.exports.ciCloudbuildUiAgent = async (pubSubEvent, context) => {

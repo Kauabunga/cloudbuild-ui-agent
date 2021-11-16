@@ -11,6 +11,7 @@
     "deploy:prod": "gcloud functions deploy ciCloudbuildUiAgent --region australia-southeast1 --trigger-topic cloud-builds --runtime nodejs14 --memory 256MB --set-env-vars \"WEBHOOK_URL=https://australia-southeast1-oba-cloudbuild.cloudfunctions.net/helloWorld\" --project oba-prod"
   },
   "dependencies": {
+    "fetch-retry": "^5.0.1",
     "node-fetch": "^2.6.6"
   }
 }
