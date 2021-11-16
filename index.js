@@ -1,6 +1,12 @@
 const originalFetch = require("node-fetch");
 const fetch = require("fetch-retry")(originalFetch, {
-  retries: 5,
+  retryOn: function (attempt, error, response) {
+    // retry on any network error, or 4xx or 5xx status codes
+    if (error !== null || response.status >= 400) {
+      console.log(`Retrying, attempt number ${attempt + 1}`);
+      return true;
+    }
+  },
   retryDelay: function (attempt, error, response) {
     return Math.pow(2, attempt) * 1000; // 1000, 2000, 4000
   },
